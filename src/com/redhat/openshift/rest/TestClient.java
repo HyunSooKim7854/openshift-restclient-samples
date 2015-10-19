@@ -1,4 +1,4 @@
-package org.onnara.rest;
+package com.redhat.openshift.rest;
 
 import java.util.Collection;
 import java.util.List;
