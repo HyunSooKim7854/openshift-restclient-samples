@@ -118,9 +118,10 @@ public class TestClient {
 		// 프로젝트 수정하기
 		LOGGER.debug("=========================================================================Project GET");
 		Project new_project = (Project)client.get(ResourceKind.PROJECT, "testtesttestproj", "testtesttestproj"); // 프로젝트 이름으로 프로젝트 가져오기
-//		LOGGER.debug(new_project.toJson()); // 조회한 결과를 JSON 형태로 출력
+		LOGGER.debug(new_project.toJson()); // 조회한 결과를 JSON 형태로 출력
 		new_project.setDescription("hskim-description"); // 수정
 		new_project.setDisplayName("hskim-dsiplayname"); // 수정
+		
 		LOGGER.debug("=========================================================================Project UPDATE");
 //		LOGGER.debug(new_project.toJson()); // 수정직전 JSON
 		IProject update_result = (IProject)client.update(new_project);	// 프로젝트 수정하기
@@ -233,7 +234,7 @@ public class TestClient {
 				labels = resultRes.getLabels();
 			}
 		}
-		
+	
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Service
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,6 +256,51 @@ public class TestClient {
 				LOGGER.debug("ServicePort TargetPort:[" + serviceport.getTargetPort() + "]");
 			}
 		}
+		
+		LOGGER.debug("=========================================================================Service CREATE");
+		/*
+		new Service
+		List<IService> services = client.create(ResourceKind.SERVICE, projects.get(0).getName()); // 특정 프로젝트에 특정 label을 가지고 있는 Service 생성하기
+		for (int j = 0; j < services.size(); j++) {
+			IService service = services.get(j);
+			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
+			LOGGER.debug("Service name:[" + service.getName() + "]");
+			LOGGER.debug("Service PortalIP:[" + service.getPortalIP() + "]");
+			LOGGER.debug("Service Port:[" + service.getPort() + "]");
+			LOGGER.debug("Service TargetPort:[" + service.getTargetPort() + "]");
+			List<IServicePort> iserviceports = service.getPorts();
+			LOGGER.debug("ServicePorts======================");
+			for (IServicePort serviceport : iserviceports) {
+				LOGGER.debug("ServicePort Name:[" + serviceport.getName() + "]");
+				LOGGER.debug("ServicePort Port:[" + serviceport.getPort() + "]");
+				LOGGER.debug("ServicePort Protocol:[" + serviceport.getProtocol() + "]");
+				LOGGER.debug("ServicePort TargetPort:[" + serviceport.getTargetPort() + "]");
+			}
+		}
+		*/
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// describe Pod
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		LOGGER.debug("=========================================================================Pod LIST");
+		/*
+		List<IPod> pods = client.list(ResourceKind.POD, projects.get(0).getName()); // 특정 프로젝트에만 추가한 Template 리스트 가져오기
+		for (IPod pod : pods) {
+//			LOGGER.debug(template.toJson());
+			LOGGER.debug("Pod Name: [" + pod.getName() + "]");
+			LOGGER.debug("Pod Namespace: [" + pod.getNamespace() + "]");
+			pod.
+			
+		}
+		*/
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Resource Quota
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Limit Range
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Route
@@ -282,14 +328,6 @@ public class TestClient {
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Delete All Application Resources(POD, Service...) by using Label
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Resource Quota
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Limit Range
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
