@@ -243,7 +243,7 @@ public class TestClient {
 		// Service
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		LOGGER.debug("=========================================================================Service LIST");
-		List<IService> services = client.list(ResourceKind.SERVICE, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가자고 있는 Service 리스트 가져오기
+		List<IService> services = client.list(ResourceKind.SERVICE, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가지고 있는 Service 리스트 가져오기
 		for (int j = 0; j < services.size(); j++) {
 			IService service = services.get(j);
 			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
@@ -304,7 +304,7 @@ public class TestClient {
 		
 		// 웹콘솔에서 "Start Build"버튼 클릭------------------------------------------
 		LOGGER.debug("=========================================================================BuildConfig LIST");
-		List<IBuildConfig> buildConfigs = client.list(ResourceKind.BUILD_CONFIG, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가자고 있는 BuildConfigs 리스트 가져오기
+		List<IBuildConfig> buildConfigs = client.list(ResourceKind.BUILD_CONFIG, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가지고 있는 BuildConfigs 리스트 가져오기
 		for (int j = 0; j < buildConfigs.size(); j++) {
 			IBuildConfig buildConfig = buildConfigs.get(j);
 			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
@@ -317,7 +317,7 @@ public class TestClient {
 
 		// 웹콘솔에서 "Rebuild"버튼 클릭------------------------------------------
 		LOGGER.debug("=========================================================================Build LIST");
-		List<IBuild> builds = client.list(ResourceKind.BUILD, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가자고 있는 Build 리스트 가져오기
+		List<IBuild> builds = client.list(ResourceKind.BUILD, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가지고 있는 Build 리스트 가져오기
 		for (int j = 0; j < builds.size(); j++) {
 			IBuild build = builds.get(j);
 			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
@@ -331,8 +331,8 @@ public class TestClient {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// DeploymentConfig
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		LOGGER.debug("=========================================================================read the specified DeploymentConfig");// 특정 프로젝트에 있는, 특정 label을 가자고 있는 DeploymentConfig 리스트 가져오기
-		List<IDeploymentConfig> deploymentConfigs = client.list(ResourceKind.DEPLOYMENT_CONFIG, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가자고 있는 BuildConfigs 리스트 가져오기
+		LOGGER.debug("=========================================================================read the specified DeploymentConfig");// 특정 프로젝트에 있는, 특정 label을 가지고 있는 DeploymentConfig 리스트 가져오기
+		List<IDeploymentConfig> deploymentConfigs = client.list(ResourceKind.DEPLOYMENT_CONFIG, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가지고 있는 BuildConfigs 리스트 가져오기
 		for (int j = 0; j < deploymentConfigs.size(); j++) {
 			IDeploymentConfig deploymentConfig = deploymentConfigs.get(j);
 			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
