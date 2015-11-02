@@ -9,6 +9,7 @@ import org.jboss.dmr.ModelNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.openshift.internal.restclient.capability.resources.BuildTrigger;
 import com.openshift.internal.restclient.capability.server.ServerTemplateProcessing;
 import com.openshift.internal.restclient.http.UrlConnectionHttpClient;
 import com.openshift.internal.restclient.model.Project;
@@ -23,6 +24,9 @@ import com.openshift.restclient.ResourceKind;
 import com.openshift.restclient.authorization.BasicAuthorizationStrategy;
 import com.openshift.restclient.authorization.IAuthorizationContext;
 import com.openshift.restclient.authorization.TokenAuthorizationStrategy;
+import com.openshift.restclient.model.IBuild;
+import com.openshift.restclient.model.IBuildConfig;
+import com.openshift.restclient.model.IDeploymentConfig;
 import com.openshift.restclient.model.IPod;
 import com.openshift.restclient.model.IPort;
 import com.openshift.restclient.model.IProject;
@@ -295,6 +299,51 @@ public class TestClient {
 		*/
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// BuildConfig
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		// 웹콘솔에서 "Start Build"버튼 클릭------------------------------------------
+		LOGGER.debug("=========================================================================BuildConfig LIST");
+		List<IBuildConfig> buildConfigs = client.list(ResourceKind.BUILD_CONFIG, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가자고 있는 BuildConfigs 리스트 가져오기
+		for (int j = 0; j < buildConfigs.size(); j++) {
+			IBuildConfig buildConfig = buildConfigs.get(j);
+			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
+			LOGGER.debug("BuildConfig name:[" + buildConfig.getName() + "]");
+		}
+		LOGGER.debug("=========================================================================create instantiate of a BuildRequest");	 // 웹콘솔에서 "Start Build"버튼 클릭시 수행되는 API
+		IBuildConfig buildConfig = buildConfigs.get(0);
+		BuildTrigger buildTrigger1 = new BuildTrigger(buildConfig, client);
+		buildTrigger1.trigger();
+
+		// 웹콘솔에서 "Rebuild"버튼 클릭------------------------------------------
+		LOGGER.debug("=========================================================================Build LIST");
+		List<IBuild> builds = client.list(ResourceKind.BUILD, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가자고 있는 Build 리스트 가져오기
+		for (int j = 0; j < builds.size(); j++) {
+			IBuild build = builds.get(j);
+			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
+			LOGGER.debug("Build name:[" + build.getName() + "]");
+		}
+		LOGGER.debug("=========================================================================create clone of a BuildRequest");	// 웹콘솔에서 "Rebuild"버튼 클릭시 수행되는 API
+		IBuild build = builds.get(0);
+		BuildTrigger buildTrigger2 = new BuildTrigger(build, client);
+		buildTrigger2.trigger();		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// DeploymentConfig
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		LOGGER.debug("=========================================================================read the specified DeploymentConfig");// 특정 프로젝트에 있는, 특정 label을 가자고 있는 DeploymentConfig 리스트 가져오기
+		List<IDeploymentConfig> deploymentConfigs = client.list(ResourceKind.DEPLOYMENT_CONFIG, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가자고 있는 BuildConfigs 리스트 가져오기
+		for (int j = 0; j < deploymentConfigs.size(); j++) {
+			IDeploymentConfig deploymentConfig = deploymentConfigs.get(j);
+			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
+			LOGGER.debug("DeploymentConfig name:[" + deploymentConfig.getName() + "]");
+		}
+		
+		LOGGER.debug("=========================================================================replace the specified DeploymentConfig"); // 웹콘솔에서 "Start Deployment"버튼 클릭시 수행되는 API
+		IDeploymentConfig deploymentConfig = deploymentConfigs.get(0);
+		client.update(deploymentConfig);
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Resource Quota
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -308,14 +357,6 @@ public class TestClient {
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// ImageStream
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// BuildConfig
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// DeployConfig
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
