@@ -339,7 +339,7 @@ public class TestClient {
 			LOGGER.debug("DeploymentConfig name:[" + deploymentConfig.getName() + "]");
 		}
 		
-		LOGGER.debug("=========================================================================replace the specified DeploymentConfig"); // 웹콘솔에서 "Start Deployment"버튼 클릭시 수행되는 API
+		LOGGER.debug("=========================================================================replace the specified DeploymentConfig"); // 웹콘솔에서 "Start Deployment"버튼 클릭시 수행되는 API 
 		IDeploymentConfig deploymentConfig = deploymentConfigs.get(0);
 		client.update(deploymentConfig);
 		
