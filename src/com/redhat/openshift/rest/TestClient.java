@@ -331,8 +331,8 @@ public class TestClient {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// DeploymentConfig
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		LOGGER.debug("=========================================================================read the specified DeploymentConfig");// 특정 프로젝트에 있는, 특정 label을 가지고 있는 DeploymentConfig 리스트 가져오기
-		List<IDeploymentConfig> deploymentConfigs = client.list(ResourceKind.DEPLOYMENT_CONFIG, projects.get(0).getName(), labels); // 특정 프로젝트에 있는, 특정 label을 가지고 있는 BuildConfigs 리스트 가져오기
+		LOGGER.debug("=========================================================================read the specified DeploymentConfig");
+		List<IDeploymentConfig> deploymentConfigs = client.list(ResourceKind.DEPLOYMENT_CONFIG, projects.get(0).getName(), labels);	// 특정 프로젝트에 있는, 특정 label을 가지고 있는 DeploymentConfig 리스트 가져오기
 		for (int j = 0; j < deploymentConfigs.size(); j++) {
 			IDeploymentConfig deploymentConfig = deploymentConfigs.get(j);
 			LOGGER.debug("Project Name:[" + projects.get(0).getName() + "]");
